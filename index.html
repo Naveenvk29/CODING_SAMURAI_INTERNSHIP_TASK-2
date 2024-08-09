@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="stats-container">
+        <div class="details">
+          <h1>TODO App</h1>
+          <p>Keep it up</p>
+          <div id="progressBar">
+            <div id="progesss"></div>
+          </div>
+        </div>
+        <div class="stats-numbers">
+          <p id="numbers">2/3</p>
+        </div>
+      </div>
+      <form action="">
+        <input
+          type="text"
+          placeholder="write your task"
+          name=""
+          id="task-input"
+        />
+        <button id="new-Task" type="submit">+</button>
+      </form>
+      <ul class="task-list"></ul>
+    </div>
+  </body>
+  <script src="app.js"></script>
+</html>
