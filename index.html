@@ -5,24 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
 
     <title>To-Do List</title>
   </head>
   <body>
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-switch" />
+      <label for="theme-switch" class="theme-label">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </label>
+    </div>
     <div class="container">
       <div class="stats-container">
         <div class="details">
           <h1>TODO App</h1>
           <p>Keep it up</p>
           <div id="progressBar">
-            <div id="progesss"></div>
+            <div id="progress"></div>
           </div>
         </div>
         <div class="stats-numbers">
-          <p id="numbers">2/3</p>
+          <p id="numbers">0 / 0</p>
         </div>
       </div>
       <form action="">
@@ -38,4 +48,5 @@
     </div>
   </body>
   <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 </html>
