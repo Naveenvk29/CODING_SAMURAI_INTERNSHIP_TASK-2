@@ -229,7 +229,66 @@ button:hover {
 [data-theme="dark"] .taskList .icons i {
   color: var(--primary-dark);
 }
+#priority-select {
+  width: 12%;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+.priority {
+  font-weight: bold;
+  margin-left: 10px;
+}
 
+.priority.high {
+  color: red;
+}
+
+.priority.medium {
+  color: orange;
+}
+
+.priority.low {
+  color: green;
+}
+.filter-sort-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+#filter-select {
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+#sort-select {
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+[data-theme="dark"] .priority.high {
+  color: #e03e3e;
+}
+[data-theme="dark"] #priority-select {
+  background: var(--card-bg-dark);
+  color: var(--text-dark);
+  border: none;
+}
+[data-theme="dark"] #filter-select {
+  background: var(--card-bg-dark);
+  color: var(--text-dark);
+  border: none;
+}
+[data-theme="dark"] #sort-select {
+  background: var(--card-bg-dark);
+  color: var(--text-dark);
+  border: none;
+}
 @media (max-width: 480px) {
   .stats-container {
     flex-direction: column;
@@ -251,6 +310,14 @@ button:hover {
   button {
     width: 100%;
   }
+  #priority-select {
+    width: 100%;
+  }
+  .filter-sort-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -266,6 +333,9 @@ button:hover {
     height: 40%;
     border-radius: 50px;
     margin: 0;
+  }
+  #priority-select {
+    width: 100%;
   }
 }
 

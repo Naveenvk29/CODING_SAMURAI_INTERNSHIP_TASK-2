@@ -36,14 +36,27 @@
         </div>
       </div>
       <form action="">
-        <input
-          type="text"
-          placeholder="write your task"
-          name=""
-          id="task-input"
-        />
+        <input type="text" placeholder="Write your task" id="task-input" />
+        <select id="priority-select">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
         <button id="new-Task" type="submit">+</button>
       </form>
+      <div class="filter-sort-container">
+        <select id="filter-select">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+        </select>
+
+        <select id="sort-select">
+          <option value="priority">Sort by Priority</option>
+          <option value="date">Sort by Date</option>
+        </select>
+      </div>
+
       <ul class="task-list"></ul>
     </div>
   </body>

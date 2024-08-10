@@ -31,10 +31,18 @@ let tasks = [];
 const saveTasks = () => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
+
 const addNewTask = () => {
   const text = taskInput.value.trim();
+  const priority = document.querySelector("#priority-select").value;
+  const date = new Date().toISOString(); // Add current date
   if (text) {
-    tasks.push({ text: text, completed: false });
+    tasks.push({
+      text: text,
+      completed: false,
+      priority: priority,
+      date: date,
+    });
   }
   updateTaskList();
   updateStats();
@@ -78,22 +86,50 @@ const updateStats = () => {
   }
 };
 
+const sortTasks = (tasks) => {
+  const sortValue = document.querySelector("#sort-select").value;
+  return tasks.sort((a, b) => {
+    if (sortValue === "priority") {
+      const priorities = { high: 1, medium: 2, low: 3 };
+      return priorities[a.priority] - priorities[b.priority];
+    } else if (sortValue === "date") {
+      return new Date(a.date) - new Date(b.date);
+    }
+  });
+};
+
+const filterTasks = (tasks) => {
+  const filterValue = document.querySelector("#filter-select").value;
+  switch (filterValue) {
+    case "completed":
+      return tasks.filter((task) => task.completed);
+    case "pending":
+      return tasks.filter((task) => !task.completed);
+    default:
+      return tasks;
+  }
+};
+
 const updateTaskList = () => {
+  let filteredTasks = filterTasks(tasks);
+  filteredTasks = sortTasks(filteredTasks);
+
   taskList.innerHTML = "";
-  tasks.forEach((task, index) => {
+  filteredTasks.forEach((task, index) => {
     const listItem = document.createElement("li");
     listItem.innerHTML = `
-  <div class="taskList">
-      <div class="task  ${task.completed ? "completed" : ""}">
-          <input type="checkbox" class="checkbox" ${
-            task.completed ? "checked" : ""
-          } >
-          <p>${task.text}</p>
-  
-      </div>
+      <div class="taskList">
+          <div class="task ${task.completed ? "completed" : ""}">
+              <input type="checkbox" class="checkbox" ${
+                task.completed ? "checked" : ""
+              }>
+              <p>${task.text} <span class="priority ${task.priority}">(${
+      task.priority
+    })</span></p>
+          </div>
           <div class="icons">
               <i class="fa-regular fa-pen-to-square" onClick="editTask(${index})"></i>
-              <i class="fas fa-trash-alt" onClick="deleteTask(${index})" ></i>
+              <i class="fas fa-trash-alt" onClick="deleteTask(${index})"></i>
           </div>
       </div>`;
     listItem.addEventListener("change", () => toggleTaskCompleted(index));
@@ -101,37 +137,49 @@ const updateTaskList = () => {
   });
 };
 
+// Attach event listeners to the filter and sort dropdowns
+document
+  .querySelector("#filter-select")
+  .addEventListener("change", updateTaskList);
+document
+  .querySelector("#sort-select")
+  .addEventListener("change", updateTaskList);
+
 newTask.addEventListener("click", (e) => {
   e.preventDefault();
   addNewTask();
 });
 
 const celebriteConfetti = () => {
-  const defaults = {
-    spread: 360,
-    ticks: 100,
-    gravity: 0,
-    decay: 0.94,
-    startVelocity: 30,
-    shapes: ["heart"],
-    colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
-  };
+  const duration = 3000,
+    animationEnd = Date.now() + duration,
+    defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-  confetti({
-    ...defaults,
-    particleCount: 50,
-    scalar: 2,
-  });
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
-  confetti({
-    ...defaults,
-    particleCount: 25,
-    scalar: 3,
-  });
+  const interval = setInterval(function () {
+    const timeLeft = animationEnd - Date.now();
 
-  confetti({
-    ...defaults,
-    particleCount: 10,
-    scalar: 4,
-  });
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    const particleCount = 50 * (timeLeft / duration);
+
+    // since particles fall down, start a bit higher than random
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      })
+    );
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      })
+    );
+  }, 250);
 };
